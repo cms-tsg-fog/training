@@ -48,8 +48,7 @@ Once you're inside tmux:
 - <kbd>CTRL</kbd>+<kbd>S</kbd> then <kbd>$NUMBER</kbd> to go to $NUMBER tab
 - <kbd>CTRL</kbd>+<kbd>S</kbd> then <kbd>N</kbd> to create a new tab
 
-
-On tab 0 you should see the RateMon API server running. If you try `tmux attach -t 0` and get `no sessions`, then you can start a new one by running just `tmux`. To kill a session, run `tmux kill-session -t 0`.
+On tab 0 you should see the RateMon API server running. If you try `tmux attach -t 0` and get `no sessions`, then you can start a new one by running just `tmux`. If you want to kill the session, run `tmux kill-session -t 0` from the normal shell.
 
 ### NGINX
 
