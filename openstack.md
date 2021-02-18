@@ -45,10 +45,14 @@ Once you're logged in, run `tmux attach -t 0` to attach to the tmux session (kee
 Once you're inside tmux:
 
 - <kbd>CTRL</kbd>+<kbd>S</kbd> then <kbd>D</kbd> to detach and go back to the normal shell
-
 - <kbd>CTRL</kbd>+<kbd>S</kbd> then <kbd>$NUMBER</kbd> to go to $NUMBER tab
-
 - <kbd>CTRL</kbd>+<kbd>S</kbd> then <kbd>N</kbd> to create a new tab
 
 
-on tab 0 you should see the RateMon API server running.
+On tab 0 you should see the RateMon API server running. If you try `tmux attach -t 0` and get `no sessions`, then you can start a new one by running just `tmux`. To kill a session, run `tmux kill-session -t 0`.
+
+### NGINX
+
+To check what is happening with `nginx`, you can run `systemctl status nginx`. If it is green and shows "running" then it is functioning properly. To start or to stop:
+- `systemctl start nginx`
+- `systemctl stop nginx`
