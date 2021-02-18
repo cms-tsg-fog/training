@@ -22,7 +22,7 @@ For background information about the RateMon tools, feel free to take a look thr
 
 ## Step 0: Preliminary requirements
 
-In order to run the RateMon code, you will need to have an account on lxplus. The rest of this document assumes that you are on lxplus. To ssh into lxplus, run the following command (switching out “USERNAME” for your lxplus username), and enter your password when prompted:  
+In order to run the RateMon code, you will need to have an account on `lxplus`. The rest of this document assumes that you are on `lxplus`. To ssh into lxplus, run the following command (switching out “USERNAME” for your lxplus username), and enter your password when prompted:  
 
 ```bash
 ssh -Y USERNAME@lxplus.cern.ch
