@@ -71,7 +71,7 @@ The code will now make rate vs. pileup plots for the data in run 305112. You hav
 
 You can view the plots by either using the display command (e.g. display somefile.png) or by copying the files to somewhere where you can more easily view them (such as your web area, or your laptop). As an example, let’s look at the plot for the “HLT_IsoMu27” trigger:
 
-![](imgs/image1.png)
+![](imgs/image4.png)
 
 The x axis is the pileup (number of collisions per bunch crossing), and y axis shows the rate at which the trigger fired. You might notice that the rate is higher at higher pileup, and this makes sense since if you have twice the number of collisions, you might expect that the trigger would be twice as likely to fire. Following this intuition, you can see that the data looks fairly linear. This linear dependence on pileup is however not the case for all triggers, and will be discussed further in the next section.
 
@@ -93,7 +93,7 @@ This is similar to the command you ran in step 3.1, but with two extra options:
 
 If you look at the output plots, you should see a fit overlaid over each plot. For example, let’s look at the plot for HLT_IsoMu27 again:
 
-![](imgs/image2.png)
+![](imgs/image3.png)
 
 In this case, the quadratic function was able to fit the data slightly better than the linear fit. To see what the other fits look like, you can use the multiFit option instead of the bestFit option:
 
@@ -121,7 +121,7 @@ python3 plotTriggerRates.py --dbConfigFile=dbConfig.yaml --triggerList=TriggerLi
 
 This should produce plots that contain the data from all of the runs in fill 6749, with the fits from run 305112 overlaid on top of the data. Let’s look at HLT_IsoMu27 again:
 
-![](imgs/image3.png)
+![](imgs/image1.png)
 
 There are at least two things worth pointing out about this plot. The first is that the reference fit does not match the data perfectly. The rates of triggers tend to drift over time, so it is important that the reference fits are updated regularly so that they accurately reflect the expected rates. Currently this is handled manually, though developing a more automated procedure is something that the RateMon team may pursue in the future. 
 
@@ -156,7 +156,7 @@ python3 ShiftMonitorTool.py --oldParser --dbConfigFile=dbConfig.yaml --simulate=
 
 After running this command, the code will start to run over the run you specified. Eventually (the code can sometimes take a while to run), sou should see some output that looks like this:
 
-![](imgs/image4.png)
+![](imgs/image2.png)
 
 In this example, you can see that the rates of the trigger L1_SingleMu22 are deviating from the expected rates, so the trigger is highlighted in yellow. If this trigger continues to deviate for multiple consecutive lumisections, it will be flagged and (if the script were being run at P5 in real time during data taking) would trigger an alert email to the FOG group (but running offline and in simulate mode, all alerts and alarms should be disabled, so you do not need to worry about accidentally triggering any alert emails!). 
 
