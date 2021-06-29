@@ -68,3 +68,33 @@ To check what is happening with `nginx`, you can run `systemctl status nginx`. I
   ```
 - If you try to view the API from your browser and see a 502 ("Bad Gateway") error, then probably main web server (`nginx`) is active but it cannot find the configured applicaiton to show you (in this case the ratemon API). To resolve this issue, first verify that `nginx` is running properly (with `systemctl status nginx`), then attach to the `tmux` session (or start a new one if necessary), and simply restart `server.py`.
 
+## Setting up a new VM
+
+* Initial setup
+    - launch the instance with a C8 image and install the necessary dependencies, including nginx
+    - Clone the RateMon repo and set up all the necessary dependencies (pyROOT python3-root)
+* Set up the `nginx` config file
+    - Copy the file from an VM that's alreayd set up 
+    - It should be located at `/etc/nginx/conf.d/ratemon-api.conf`
+    - Remember to change the `server_name` to match the name of your server
+* Make a /cache directory that's owned by `nginx`
+    ```
+    mkdir /cache   
+    chown nginx:nginx /cache
+    ``` 
+* Get the `oracle` rpm
+    ```
+    yum install libnsl
+    yum install wget
+    export LD_LIBRARY_PATH=/usr/lib/oracle/19.6/client64/lib:LD_LIBRARY_PATH
+    wget https://download.oracle.com/otn_software/linux/instantclient/19600/oracle-instantclient19.6-basic-19.6.0.0.0-1.x86_64.rpm
+    yum install oracle-instantclient19.6-basic-19.6.0.0.0-1.x86_64.rpm
+    ```
+* Copy over the `tnsnames.ora` file
+    ```
+    scp USERNAME@lxplus.cern.ch:/afs/cern.ch/project/oracle/admin/tnsnames.ora .
+    mv tnsnames.ora /usr/lib/oracle/19.6/client64/lib/network/admin/
+    ```    
+* Check if port 80 is open, and if not, open it
+    - First run `firewall-cmd --list-ports`, if you see `80/tcp`, it's already open
+    - If not, run `firewall-cmd --add-port=80/tcp` to open it
