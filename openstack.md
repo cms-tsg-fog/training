@@ -48,7 +48,7 @@ Once you're inside tmux:
 - <kbd>CTRL</kbd>+<kbd>S</kbd> then <kbd>$NUMBER</kbd> to go to $NUMBER tab
 - <kbd>CTRL</kbd>+<kbd>S</kbd> then <kbd>N</kbd> to create a new tab
 
-Note: In newer versions <kbd>CTRL</kbd>+<kbd>b</kbd> is used.
+**Note:** In newer versions <kbd>CTRL</kbd>+<kbd>b</kbd> is used.
 
 On tab 0 you should see the RateMon API server running. If you try `tmux attach -t 0` and get `no sessions`, then you can start a new one by running just `tmux`. If you want to kill the session, run `tmux kill-session -t 0` from the normal shell.
 
@@ -72,12 +72,15 @@ To check what is happening with `nginx`, you can run `systemctl status nginx`. I
 
 ## Setting up a new CERN OpenStack VM
 
-If you would like to launch a new instance, firstly, go to https://openstack.cern.ch and check whether there is sufficient quota available. If not, you can `Request a Quota Change` (in "Compute" you can untick `Respect the suggested ratios between instances/cores/RAM` to allow for your particular setup in terms of cores & RAM).
+### Launching a new instance using the CERN OpenStack UI
+
+If you would like to launch a new instance, firstly, go to https://openstack.cern.ch and check whether there is sufficient quota available. If not, you can `Request a Quota Change` (in `Compute` you can untick `Respect the suggested ratios between instances/cores/RAM` to allow for your particular setup in terms of cores & RAM).
 
 To launch a new instance, go to `Compute` -> `Instances` and click `Launch Instance`. Choose an instance name, `C8 - x86_64` for the image, `m2.large` for the flavour and `cms-tsg` as the key pair (which has been uploaded to OpenStack). 
 
-Note: You can also `Create Snapshot` of an existing instance and then use that as the image for the new instance (eg. `ater - C8 - x86_64 [2021-06-29]`). In this way, some of the below setup steps (eg. dependencies) can be skipped.
+**Note:** You can also `Create Snapshot` of an existing instance and then use that as the image for the new instance (eg. `ater - C8 - x86_64 [2021-06-29]`). In this way, some of the below setup steps (eg. dependencies) can be skipped.
 
+### Setting up the new instance
 
 * Initial setup:
     - After `ssh`ing into the VM, install the necessary dependencies:
