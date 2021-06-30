@@ -54,16 +54,16 @@ On tab 0 you should see the RateMon API server running. If you try `tmux attach 
 
 ### NGINX
 
-To check what is happening with `nginx`, you can run `systemctl status nginx`. If it is green and shows "running" then it is functioning properly. To start or to stop:
+To check what is happening with `nginx`, you can run `systemctl status nginx`. If it is green and shows "running" then it is functioning properly. To start, stop or restart:
 - `systemctl start nginx`
 - `systemctl stop nginx`
-
+- `systemctl restart nginx`
 
 ## When things go wrong
 
 - If you try to view the API from your browser (at `http://ater.cern.ch/api/v1/ui/`) and see `"This site can't be reached The webpage at http://ater.cern.ch/api/v1/ui/ might be temporarily down or may have moved permanently to a new address"`, then probably it needs to be restarted. To restart, start `nginx`, and then run `server.py` inside of a `tmux` session, e.g.:
   ```
-  systemctl start nginx
+  systemctl restart nginx
   cd ratemon/ratemon
   tmux
   python3 server.py
