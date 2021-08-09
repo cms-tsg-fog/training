@@ -1,17 +1,17 @@
-# Making the rate vs PU PNG files that are displayed on OMS
+# Making the rate vs PU PNG files to be displayed on OMS
 
-The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` directory is located inside of the `/data/` directory on the VM. The output PNG files should be placed in `/cmsnfsrateplots/rateplots/`.
+The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` repository is located inside of the `/data/` directory on the VM. OMS looks for the outpout PNG files in the `/cmsnfsrateplots/rateplots/RUNNUMBER` directory.
 
-Important: Always become `hltpro` before doing anything on this VM!  
+**Important**: Always become `hltpro` before doing anything on this VM!  
 
 ## Operations during Run 2 data taking
-During Run 2 data taking, a cron job ran the [make_plots_for_cron.sh](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/make_plots_for_cron.sh) once per hour. The bash script ran `plotTriggerRates.py` to create rate vs PU plots for the lasts fill with stable beams, then copied the plots and index.html files to `/cmsnfsrateplots/rateplots/`, where WMB would find them and display them.
+During Run 2 data taking, a cron job ran the [make_plots_for_cron.sh](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/make_plots_for_cron.sh) once per hour. The bash script ran `plotTriggerRates.py` to create rate vs PU plots for the latest fill with stable beams, then copied the plots and `index.html` files to `/cmsnfsrateplots/rateplots/`, where WMB would find and display them.
 
 ## How to access the machine
 
-First ssh into `lxplus`, then `cmsusr`. Next, ssh into the VM. Always become `hltpro` before doing anything on this VM, so that `hltpro` will be the owner of the repository and all of the files inside of it. 
+First ssh into `lxplus`, then `cmsusr`. Next, ssh into the VM. Always become `hltpro` before doing anything on this VM, so that `hltpro` will be the owner of the repository and all of the files inside of it. To summarize these steps:
 ```
-ssh lxplus
+ssh -Y [your user name]@lxplus.cern.ch
 ssh cmsusr
 ssh -Y [your user name]@kvm-s3562-1-ip151-84.cms
 sudo -u hltpro -i
