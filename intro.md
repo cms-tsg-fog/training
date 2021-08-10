@@ -22,27 +22,33 @@ git clone https://gitlab.cern.ch/cms-tsg-fog/ratemon.git
 
 After running this command, you should have a directory called `ratemon` inside of the directory from which you ran the command. 
 
-## Step 2: database credentials
+## Step 2: installing oms-api-client
 
+The RateMon code uses OMS to get the information. First, the oms-api-client must be installed before the RateMon code will work. The repository for this depedency can be found here: https://gitlab.cern.ch/cmsoms/oms-api-client. To install the dependency perform the following commands:
 
-Now that you have cloned the code, `cd` into the main `ratemon` directory:
+```bash
+git clone ssh://git@gitlab.cern.ch:7999/cmsoms/oms-api-client.git
+cd oms-api-client
+python3 -m pip install -r requirements.txt
+python3 setup.py install --user
+```
+
+## Step 3: Running the plotTriggerRates code
+
+Now that you have cloned the code, cd into the main ratemon directory:
 
 ```bash
 cd ratemon/ratemon/
 ```
 
-You can do an `ls` to look around at the files in this directory. The two main files that  you will be running are `plotTriggerRates.py` and `ShiftMonitorTool.py`. However, before you are able to run anything, you will need to insert the correct passwords into the file called `dbConfig.yaml`. These will allow the code to access the database to obtain the trigger rate information. Please ask someone from the RateMon team for the passwords, open the file with your favorite text editor (e.g. vim), and enter the passwords in place of the `__cms_hlt_r_pass__` and `__cms_trg_r_pass__` placeholders. 
-
-## Step 3: Running the plotTriggerRates code
-
 In this step, you will learn how to run the `plotTriggerRates.py script`. This script is responsible for making trigger rate vs. pileup plots, and is run offline (as opposed to the `ShiftMonitorTool` script, whose main purpose is to be run online during data taking). The script that you run (`plotTriggerRates.py`) is really just a wrapper for the `RateMonitor.py` script, which in turn uses functions from `DataParser.py` (to obtain the rate information),  `FitFinder.py` (to make fits to the rates), and `PlotMaker.py` (to make the plots). 
 
 ### 3.1 Making rate vs. pileup plots
 
-The `plotTriggerRates.py` script can be run with many options to specify how you would like to make the plots  (you can take a look at the `setOptions` function in `plotTriggerRates` to see all of them). However, the only required option is `dbConfigFile`; this is where you specify the yaml file that contains the database passwords. You must also tell the script which run (or runs) to use. Provide this at the end of the command. As an example, you can try to run the following:
+The `plotTriggerRates.py` script can be run with many options to specify how you would like to make the plots  (you can take a look at the `setOptions` function in `plotTriggerRates` to see all of them). You must also tell the script which run (or runs) to use. Provide this at the end of the command. As an example, you can try to run the following:
 
 ```bash
-python3 plotTriggerRates.py --dbConfigFile=dbConfig.yaml --triggerList=TriggerLists/monitorlist_COLLISIONS.list 305112
+python3 plotTriggerRates.py --triggerList=TriggerLists/monitorlist_COLLISIONS.list 305112
 ```
 
 The code will now make rate vs. pileup plots for the data in run 305112. You have also specified an additional option (`triggerList`) that tells the code which triggers to make plots for. You can open the file (`TriggerLists/monitorlist_COLLISIONS.list`) to see which triggers these are. The plots will be located in the `tmp_rate_plots/png` directory. There should be a plot for each trigger in the `triggerList` you specified.
@@ -60,7 +66,7 @@ By default, the code will put the plots into the `tmp_rate_plots` directory ever
 The next step is to try to make fits to the rate vs. pileup plots. The code can fit linear, quadratic, and exponential functions to the data. As mentioned in the previous section, we would naively expect the rate for all triggers to have a linear dependence. However it was empirically found that some triggers fit a quadratic or even exponential curve much better than a linear fit. This can be due to detector effects and combinatorics, as some triggers do not scale well with luminosity. Usually, for each trigger, you will want to use the fit that is able to best match the data, so the code is also able to check the mean squared error for each fit, and to select the one with the lowest mean square error. To make rate vs. pileup plots with a fit to the data, you can try running the following command:
 
 ```bash
-python3 plotTriggerRates.py --dbConfigFile=dbConfig.yaml --createFit --bestFit --triggerList=TriggerLists/monitorlist_COLLISIONS.list 305112
+python3 plotTriggerRates.py --createFit --bestFit --triggerList=TriggerLists/monitorlist_COLLISIONS.list 305112
 ```
 
 This is similar to the command you ran in step 3.1, but with two extra options:
@@ -76,7 +82,7 @@ If you look at the output plots, you should see a fit overlaid over each plot. F
 In this case, the quadratic function was able to fit the data slightly better than the linear fit. To see what the other fits look like, you can use the `multiFit` option instead of the `bestFit` option:
 
 ```bash
-python3 plotTriggerRates.py --dbConfigFile=dbConfig.yaml --createFit --multiFit --triggerList=TriggerLists/monitorlist_COLLISIONS.list 305112
+python3 plotTriggerRates.py --createFit --multiFit --triggerList=TriggerLists/monitorlist_COLLISIONS.list 305112
 ```
 
 If you look at the plots that are output by running this command, you should see a linear, quadratic, and exponential fit on each plot.
@@ -94,7 +100,7 @@ cp tmp_rate_plots/fit_file.pkl fit_file.pkl
 The next step will be to overlay those fits on data from a different run. Since those fits were created from the data from run 305112, for this exercise we will just choose a different run, such as the runs from fill 6749 (which consisted of runs 317291, 317292, 317295, 317296, and 317297). To tell the code to overlay your reference fits, we’ll use the `fitFile` option (and specify the name of the fit file):
 
 ```bash
-python3 plotTriggerRates.py --dbConfigFile=dbConfig.yaml --triggerList=TriggerLists/monitorlist_COLLISIONS.list --fitFile=fit_file.pkl 317291 317292 317295 317296 317297
+python3 plotTriggerRates.py --triggerList=TriggerLists/monitorlist_COLLISIONS.list --fitFile=fit_file.pkl 317291 317292 317295 317296 317297
 ```
 
 This should produce plots that contain the data from all of the runs in fill 6749, with the fits from run 305112 overlaid on top of the data. Let’s look at HLT_IsoMu27 again:
@@ -123,13 +129,7 @@ If you’d like to make sure that it is set to what you think it is, you can run
 Now that your `RATEMON_LOG_DIR` is set to your current directory, you are ready to try running the `ShiftMonitorTool.py`. You will want to run the code with the simulate option, and specify a run for the code to run on (if we were not in the middle of a long shutdown, you could run without the `simulate` option, and the code would run over the current run, however, even during data taking, the `simulate` option is still useful for developing and testing the code). Try running the following command: 
 
 ```bash
-python3 ShiftMonitorTool.py --dbConfigFile=dbConfig.yaml --simulate=317182
-```
-
-(Note this will run the new database parser which is new and may cause some bugs. If you encounter errors using this command try the one below to use the old database parser as it may solve your problems)
-
-```bash
-python3 ShiftMonitorTool.py --oldParser --dbConfigFile=dbConfig.yaml --simulate=317182
+python3 ShiftMonitorTool.py --simulate=317182
 ```
 
 After running this command, the code will start to run over the run you specified. Eventually (the code can sometimes take a while to run), sou should see some output that looks like this:
