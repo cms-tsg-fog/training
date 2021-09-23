@@ -18,7 +18,7 @@ For background information about the RateMon tools, feel free to take a look thr
 - [Slides summarizing the RateMon tools more generally, with a brief overview of the CMS trigger system](https://indico.cern.ch/event/782953/contributions/3464896/attachments/1888644/3114119/RateMon_DPFSlides.pdf) (Presented by Kelci Mohrman at the 2019 APS DPF conference)
 - [Slides that provide an update on the current state of the tools](https://indico.cern.ch/event/947284/contributions/3995729/attachments/2093836/3518824/Ratemon_Aug31.pdf) (Presented by Antonio Vivace at a L1T meeting in 2020)
 - [CMS paper on the trigger system](https://arxiv.org/pdf/1609.02366.pdf)
-- [Antonio Vivace master thesis on the upgrades to RateMon](https://avivace.com/thesis.pdf)
+- [Antonio Vivace master thesis on the upgrades to RateMon](https://github.com/avivace/master-thesis/releases/download/final-delivery/thesis.pdf)
 
 ## Contents
 
