@@ -1,10 +1,12 @@
 # Making the rate vs PU PNG files to be displayed on OMS
 
-The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` repository is located inside of the `/data/` directory on the VM. OMS looks for the outpout PNG files in the `/cmsnfsrateplots/rateplots/RUNNUMBER` directory.
+The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` repository is located inside of the `/data/` directory on the VM. The PNG files that the code creates are in the `/cmsnfsrateplots/rateplots/RUNNUMBER` directory.
 
 **Important**: Always become `hltpro` before doing anything on this VM!  
 
-## Operations during Run 2 data taking
+The wrapper script responsible for producing the rate vs PU plots is `make_plots_for_cron.py`. Currently, the script uses the `oldParser` option when running `plotTriggerRates` since the code requires the `getPathsInDatasets()` function, which is not available with the new parser ([Issue #31](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/issues/31)).
+
+## For reference: operations during Run 2 data taking
 During Run 2 data taking, a cron job ran the [make_plots_for_cron.sh](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/make_plots_for_cron.sh) once per hour. The bash script ran `plotTriggerRates.py` to create rate vs PU plots for the latest fill with stable beams, then copied the plots and `index.html` files to `/cmsnfsrateplots/rateplots/`, where WMB would find and display them.
 
 ## How to access the machine
