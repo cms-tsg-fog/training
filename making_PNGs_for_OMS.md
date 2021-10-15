@@ -22,3 +22,17 @@ In general, we only pull from this machine, and do not usually push from it. If 
 ssh -f -N -D 1080 [your user name]@cmsusr.cms
 ```
 This will require your `cmsusr` password. After this command, you should be able to e.g. `git clone` the repository using the `https` method. More information about this command and about how git through a proxy can be found [here](https://cms-sw.github.io/tutorial-proxy.html). 
+
+## Dependencies 
+
+The `kvm-s3562-1-ip151-84` machine by default does not have many of the dependencies that the RateMon code requires. It can be easy to overlook the dependencies that are available by default on `lxplus` (since we generally test the code on `lxplus`), so for reference we have compiled a list of the dependencies that we had to request to be installed on `kvm-s3562-1-ip151-84` (for python3):
+```
+python 3.6
+cx_Oracle
+yaml
+setuptools
+requests
+ROOT
+```
+If the code requires packages that are not available on `kvm-s3562-1-ip151-84`, just open a CMS ONS JIRA ticket to request that the packages be installed (examples: [CMSONS-13369](https://its.cern.ch/jira/browse/CMSONS-13369), [CMSONS-13163](https://its.cern.ch/jira/browse/CMSONS-13163), [CMSONS-13241](https://its.cern.ch/jira/browse/CMSONS-13241)).
+
