@@ -1,6 +1,6 @@
 # Making the rate vs PU PNG files to be displayed on OMS
 
-The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` repository is located inside of the `/data/` directory on the VM. The PNG files that the code creates are in the `/cmsnfsrateplots/rateplots/RUNNUMBER` directory.
+The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` repository is located inside of the `/data/` directory on the VM. The PNG files that the code creates can be saved in a subdirectory of the `/cmsnfsrateplots/rateplots/` directory (`Run2`, `Run3`, `LS2`, or `testing`).
 
 **Important**: Always become `hltpro` before doing anything on this VM!  
 
@@ -37,4 +37,20 @@ requests
 ROOT
 ```
 If the code requires packages that are not available on `kvm-s3562-1-ip151-84`, just open a CMS ONS JIRA ticket to request that the packages be installed (examples: [CMSONS-13369](https://its.cern.ch/jira/browse/CMSONS-13369), [CMSONS-13163](https://its.cern.ch/jira/browse/CMSONS-13163), [CMSONS-13241](https://its.cern.ch/jira/browse/CMSONS-13241)).
+
+## cron
+
+We use `cron` to run the `make_plots_for_cron.py` script periodically. This is specified via the `crontab` file. A reference that explains how to use `cron` is [here](https://www.adminschoice.com/crontab-quick-reference).
+
+ To display the list of cron jobs in the `crontab` file, run `crontab -l`. To edit the file, run `crontab -e`.
+
+Each line in the `crontab` file should specify a command to run, and the frequency at which it should be executed (as described in the reference above). For our `make_plots_for_cron.py` script, the line in the `crontab` file is this:
+```
+1 * * * * python3 /data/ratemon/ratemon/make_plots_for_cron.py > /dev/null
+```
+This specifies that the file should be run once per hour on the 1st minute of the hour, and that the output should be directed to `dev/null`. Lines in the `crontab` file that begin with a `#` will not be executed. 
+
+Note that for running `make_plots_for_cron.py` with `cron`, it is important that all file paths are absolute.
+
+If your the `cron` job runs into an error, the error message can be found in `/var/spool/mail/hltpro`.
 
