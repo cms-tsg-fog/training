@@ -111,6 +111,15 @@ There are at least two things worth pointing out about this plot. The first is t
 
 The second thing to notice about this plot is the rates for runs 317295 and 317296 look significantly lower than you would expect. This is exactly the type of issue that the RateMon tools can help to spot. Since this is a muon trigger, you might guess the issue is related to the muon detectors. Indeed, if you check the daily run report from when this data was collected (http://schwick.web.cern.ch/schwick/rctools/dailyReport/detailReport/display/2018-06-02), it turns out that there was partial power loss at the end of run 317292 that resulted in the RPCs being excluded from global running in 317295. The RateMon tools (specifically the `ShiftMonitorTool` script) can help to quickly identify issues like this by comparing the rates for each trigger to the rates predicted by the trigger’s reference fit, and raising alerts if the rates deviate significantly from the expected rates.
 
+### 3.4 Creating root files
+
+To create the root files for the rate vs. Pileup plots one can use the following command:
+
+```bash
+python3 plotTriggerRates.py --triggerList=TriggerLists/monitorlist_COLLISIONS.list --exportRoot 322355
+```
+This uses the --exportRoot command line option for plotTriggerRates.py which will save the root files for the plots you make.
+
 ## Step 4: Running the shift monitor tool
 
 In this step, you will try running the `ShiftMonitorTool.py`. As described in the posters and slides linked at the beginning of this document, this part of the code is responsible for comparing the rates of various HLT and L1 triggers to the rates predicted by a set of reference fits. Usually, this script runs continuously at P5 during datataking. As we are currently in the middle of a long shutdown, there is no data being taken. However, we can still run the script in `simulate` mode, where the script runs over data that was taken during a previous run. Although the script you run is `ShiftMonitorTool.py`, this is really just a wrapper for the main shift monitor script, which is called `ShiftMonitorNCR.py`. Feel free to take a few minutes to open these scripts and look at what they’re doing (though `ShiftMonitorNCR.py` is quite lengthy, and unfortunately not the most well organized script that was ever written, so no need to spend too much time trying to decipher things at this point). 
