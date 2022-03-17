@@ -59,17 +59,6 @@ To check what is happening with `nginx`, you can run `systemctl status nginx`. I
 - `systemctl stop nginx`
 - `systemctl restart nginx`
 
-## When things go wrong
-
-- If you try to view the API from your browser (at `http://ater.cern.ch/api/v1/ui/`) and see `"This site can't be reached The webpage at http://ater.cern.ch/api/v1/ui/ might be temporarily down or may have moved permanently to a new address"`, then probably it needs to be restarted. To restart, start `nginx`, and then run `server.py` inside of a `tmux` session, e.g.:
-  ```
-  systemctl restart nginx
-  cd ratemon/ratemon
-  tmux
-  python3 server.py
-  ```
-- If you try to view the API from your browser and see a 502 ("Bad Gateway") error, then probably main web server (`nginx`) is active but it cannot find the configured applicaiton to show you (in this case the ratemon API). To resolve this issue, first verify that `nginx` is running properly (with `systemctl status nginx`), then attach to the `tmux` session (or start a new one if necessary), and simply restart `server.py`.
-
 ## Setting up a new CERN OpenStack VM
 
 ### Launching a new instance using the CERN OpenStack UI
@@ -117,3 +106,35 @@ To launch a new instance, go to `Compute` -> `Instances` and click `Launch Insta
     - First run `firewall-cmd --list-ports`, if you see `80/tcp`, it's already open
     - If not, run `firewall-cmd --add-port=80/tcp` to open it
     - Useful [documentation about firewalls](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-controlling_traffic#sec-Controlling_Ports_using_CLI)
+
+* Once things are running, you will need to initialize the `nginx`:
+    ```
+    systemctl start nginx
+    ```
+
+## When things go wrong
+
+- If you try to view the API from your browser (at `http://ater.cern.ch/api/v1/ui/`) and see `"This site can't be reached The webpage at http://ater.cern.ch/api/v1/ui/ might be temporarily down or may ha
+ve moved permanently to a new address"`, then probably it needs to be restarted. To restart, start `nginx`, and then run `server.py` inside of a `tmux` session, e.g.:
+  ```
+  systemctl restart nginx
+  cd ratemon/ratemon
+  tmux
+  python3 server.py
+  ```
+
+- This is a good suggestion for most problems as it is a reset for the sever. Try it as a first step, but if it does not solve it, below are a few more troubleshooting situation, mainly regarding an improper VM setup.
+
+- If you try to view the API from your browser and see a 502 ("Bad Gateway") error, then probably main web server (`nginx`) is active but it cannot find the configured applicaiton to show you (in this ca
+se the ratemon API). To resolve this issue, first verify that `nginx` is running properly (with `systemctl status nginx`), then attach to the `tmux` session (or start a new one if necessary), and simply 
+restart `server.py`. If the problem still persists do:
+   ```
+   getsebool -a | grep httpd
+   ```
+
+- And look to see if ("httpd_can_network_connect") is off. If it is off do:
+   ```
+   setsebool httpd_can_network_connect 1
+   ```
+
+- To set it to on. This should fix the 502 ("Bad Gateway") error. 
