@@ -1,6 +1,6 @@
 # Advanced options for plotTriggerRates.py
 
-This goes into further details about less common options for plotTriggerRates.py.
+This goes into further details about less common options for `plotTriggerRates.py`.
 
 This requires the setup in the `intro.md` document. Follow those instructions and ensure that `plotTriggerRates.py` runs as expected.
 
@@ -38,13 +38,19 @@ A list of the LS sorted by the "worst" LS (worst = most triggers deviating from 
 The results are dumped into a directory titled CertificationSummary _xxxx-yyyy, where xxxx and yyy are the minimum and maximum run numbers you specified on the command line. Inside this directory there is:
 
 - A .txt file listing the bad LS and bad triggers
-- A directory titled 'png' containing png files of every plot in the .root file 
+- A directory titled 'png' containing png files of every plot 
 
 Notes:
 
 - Fits are automatically adjusted for deadtime, prescale
 - All rates plotted by default are raw unprescaled rates
 - The acceptable tolerance (default = 3sigma) from fit is what determines a bad LS. When the rate for the run being certified is beyond the 3sigma error band, the LS is marked bad. 
+
+This option will run the certification for the monitored triggers. If you want to run the script over all triggers in the runs you can do:
+
+```
+python3 plotTriggerRates.py --Secondary --allTriggers --fitFile=Fits/All_Triggers/FOG.pkl yourRunNumbers
+```
 
 ## Other Options
 
