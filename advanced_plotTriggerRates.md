@@ -25,7 +25,7 @@ This creates some plots and .txt files to help with run certification typically 
 To run in secondary mode and certify runs based on rates the monitor triggers in the collisions list and make plots of rate vs LS:
 
 ```
-python plotTriggerRates.py --Secondary --triggerList=monitorlist_COLLISIONS.list --fitFile=Fits/Monitored_Triggers/FOG.pkl yourRunNumbers
+python3 plotTriggerRates.py --Secondary --triggerList=monitorlist_COLLISIONS.list --fitFile=Fits/Monitored_Triggers/FOG.pkl yourRunNumbers
 ```
 
 Note: The fit file FOG.pkl is updated regularly and contains the latest fits. If there are questions about the fit, ask in the RateMon channel in mattermost
@@ -51,41 +51,41 @@ Notes:
 This lists other options in `plotTriggerRates.py` and some examples
 
 - --createFit
- - This option tells the code to generate a best fit function for the specified data. The fit file will be saved in the same directory as the .root file and will be saved as fit_file.pkl
- - Ex: `python3 plotTriggerRates.py --createFit 123 132 213 231`
+   - This option tells the code to generate a best fit function for the specified data. The fit file will be saved in the same directory as the .root file and will be saved as fit_file.pkl
+   - Ex: `python3 plotTriggerRates.py --createFit 123 132 213 231`
 - --bestFit
- - By default the code will only attempt to create a quadratic fit to the data, but if you use this option it will also generate a linear and sinh fit and then pick the one with the smallest mean square error as the 'best' fit.
- - Ex: `python3 plotTriggerRates.py --createFit --bestFit 123 132 213 231`
+   - By default the code will only attempt to create a quadratic fit to the data, but if you use this option it will also generate a linear and sinh fit and then pick the one with the smallest mean square error as the 'best' fit.
+   - Ex: `python3 plotTriggerRates.py --createFit --bestFit 123 132 213 231`
 - --multiFit
- - This option tells the plot maker for each trigger to display as many fits as it knows about, all on the same plot.
- - Ex: `python3 plotTriggerRates.py --createFit --multiFit 123 132 213 231`
+   - This option tells the plot maker for each trigger to display as many fits as it knows about, all on the same plot.
+   - Ex: `python3 plotTriggerRates.py --createFit --multiFit 123 132 213 231`
 - --useFit=<fit_type>
- - This option allows you to override the 'default' fit to use and instead try a different fit function. The current list of supported fits are: 'linear', 'quad', 'cube', 'exp', and 'sinh'
- - Ex: `python3 plotTriggerRates.py --createFit --useFit=linear 123 132 213 231`
+   - This option allows you to override the 'default' fit to use and instead try a different fit function. The current list of supported fits are: 'linear', 'quad', 'cube', 'exp', and 'sinh'
+   - Ex: `python3 plotTriggerRates.py --createFit --useFit=linear 123 132 213 231`
 - --fitFile=<fit_file>
- - This option allows you specify a .pkl file which contains previously generated fits, that the code will display on top of the rate data
- - Ex: `python3 plotTriggerRates.py --fitFile=/path/to/fit_file.pkl 123 132 213 231`
+   - This option allows you specify a .pkl file which contains previously generated fits, that the code will display on top of the rate data
+   - Ex: `python3 plotTriggerRates.py --fitFile=/path/to/fit_file.pkl 123 132 213 231`
 - --triggerList=<your_trigger_list>
- - Specify a particular list of triggers that you want plotted
- - Ex: `python3 plotTriggerRates.py --triggerList=/path/to/trigger_file.list 123 132 213 231`
+   - Specify a particular list of triggers that you want plotted
+   - Ex: `python3 plotTriggerRates.py --triggerList=/path/to/trigger_file.list 123 132 213 231`
 - --vsInstLumi / --vsLS
- - Generate Rate vs. Inst. Luminosity (LS) plots
- - Ex1: `python3 plotTriggerRates.py --vsInstLumi 123 132 213 231`
- - Ex2: `python3 plotTriggerRates.py --vsLS 123 132 213 231`
+   - Generate Rate vs. Inst. Luminosity (LS) plots
+   - Ex1: `python3 plotTriggerRates.py --vsInstLumi 123 132 213 231`
+   - Ex2: `python3 plotTriggerRates.py --vsLS 123 132 213 231`
 - --useCrossSection
- - Scales the y-values, by dividing each plot point by its corresponding inst. luminosity
- - Ex: `python3 plotTriggerRates.py --useCrossSection 123 132 213 231`
- - Note: This option does not normalize by the number of colliding bunches 
+   - Scales the y-values, by dividing each plot point by its corresponding inst. luminosity
+   - Ex: `python3 plotTriggerRates.py --useCrossSection 123 132 213 231`
+   - Note: This option does not normalize by the number of colliding bunches 
 - --psFilter=1,2,3
- - This option will only plot points that were produced in the specified prescale columns
- - Ex: `python3 plotTriggerRates.py --psFilter=1,2,4 123 132 213 231`
+   - This option will only plot points that were produced in the specified prescale columns
+   - Ex: `python3 plotTriggerRates.py --psFilter=1,2,4 123 132 213 231`
 - --useFills
- - This option allows you to specify entire fills to plot instead of individual runs
- - Ex: `python3 plotTriggerRates.py --useFills 1234 4321
+   - This option allows you to specify entire fills to plot instead of individual runs
+   - Ex: `python3 plotTriggerRates.py --useFills 1234 4321
 - --saveDirectory=/path/to/some/dir
- - This option allows you to save the plots to a specific output directory
- - Ex: `python3 plotTriggerRates.py --saveDirectory=/path/to/some/directory 123 132 213 231`
- - Note: If the output directory already exists the code will attempt to remove all contents from that directory first! 
+   - This option allows you to save the plots to a specific output directory
+   - Ex: `python3 plotTriggerRates.py --saveDirectory=/path/to/some/directory 123 132 213 231`
+   - Note: If the output directory already exists the code will attempt to remove all contents from that directory first! 
 
 By default the output of the script will produce the plots in a directory labeled tmp_rate_plots. In this directory you will find:
 
