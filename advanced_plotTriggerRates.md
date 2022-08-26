@@ -25,7 +25,7 @@ This creates some plots and .txt files to help with run certification typically 
 To run in secondary mode and certify runs based on rates the monitor triggers in the collisions list and make plots of rate vs LS:
 
 ```
-python3 plotTriggerRates.py --Secondary --triggerList=monitorlist_COLLISIONS.list --fitFile=Fits/Monitored_Triggers/FOG.pkl yourRunNumbers
+python3 plotTriggerRates.py --Secondary --triggerList=TriggerLists/monitorlist_COLLISIONS.list --fitFile=Fits/Monitor_Triggers/FOG.pk yourRunNumbers
 ```
 
 Note: The fit file FOG.pkl is updated regularly and contains the latest fits. If there are questions about the fit, ask in the RateMon channel in mattermost
