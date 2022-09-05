@@ -52,7 +52,7 @@ This option will run the certification for the monitored triggers. If you want t
 python3 plotTriggerRates.py --Secondary --allTriggers --fitFile=Fits/All_Triggers/FOG.pkl yourRunNumbers
 ```
 
-##Total L1 Plots
+## Total L1 Plots
 
 To create the plots for total L1 rates use the following command:
 
@@ -66,7 +66,7 @@ This will create the following rate vs. PU plots
 - L1A Physics
 - L1A Physics Lost
 
-##Dataset Plots
+## Dataset Plots
 
 To create rate vs. PU plots for all of the datatsets in a run use the following command:
 
