@@ -44,7 +44,14 @@ Notes:
 
 - Fits are automatically adjusted for deadtime, prescale
 - All rates plotted by default are raw unprescaled rates
-- The acceptable tolerance (default = 3sigma) from fit is what determines a bad LS. When the rate for the run being certified is beyond the 3sigma error band, the LS is marked bad. 
+- The acceptable tolerance (default = 5sigma) from fit is what determines a bad LS. When the rate for the run being certified is beyond the 3sigma error band, the LS is marked bad. 
+
+Interperting the results:
+
+- These results require interpertation, as some LS are marked as bad even when they are not
+- Isolated LS that are only marked as bad and not the surrounding LS for 2 to 3 triggers can be ignored as small spikes are common
+- Groups of LS marked as bad should be investigated
+- Any LS with very large deviations (can be seen on hte rate vs. LS plots produced here) should be investigated
 
 This option will run the certification for the monitored triggers. If you want to run the script over all triggers in the runs you can do:
 

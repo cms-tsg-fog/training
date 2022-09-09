@@ -1,6 +1,6 @@
 # Making the rate vs PU PNG files to be displayed on OMS
 
-The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` repository is located inside of the `/data/` directory on the VM. The PNG files that the code creates can be saved in a subdirectory of the `/cmsnfsrateplots/rateplots/` directory (`Run2`, `Run3`, `LS2`, or `testing`).
+The VM `kvm-s3562-1-ip151-84` is used for this task. The `ratemon` repository is located inside of the `/opt/` directory on the VM. The PNG files that the code creates can be saved in a subdirectory of the `/cmsnfsrateplots/rateplots/` directory (`Run2`, `Run3`, `LS2`, or `testing`).
 
 **Important**: Always become `hltpro` before doing anything on this VM!  
 
