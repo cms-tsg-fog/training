@@ -9,12 +9,12 @@ This requires the setup in the `intro.md` document. Follow those instructions an
 When the reference fits need to be updated (because they were requested, there are too many fake alerts, or another reason), the first step is to select the runs used to make the new plots. The runs must meet the following criteria:
 
 Reference Fit criteria
--Must be more recent than previous reference runs
--At least 2 runs, each longer than 100 LS (preferably total LS between all runs >400)
--Marked as good in RR
--When run over the same runs in secondary using fits made from the runs <5% lumisection marked as bad
--All fits from the monitored_trigger list should be visually inspected to ensure no significant deviation is seen
--Must cover a large range of PU. 20-50 PU is preferrable
+- Must be more recent than previous reference runs
+- At least 2 runs, each longer than 100 LS (preferably total LS between all runs >400)
+- Marked as good in RR
+- When run over the same runs in secondary using fits made from the runs <5% lumisection marked as bad
+- All fits from the monitored_trigger list should be visually inspected to ensure no significant deviation is seen
+- Must cover a large range of PU. 20-50 PU is preferrable
 
 After the runs have been selected, the fits can be made. To make the fits run the following commands:
 
