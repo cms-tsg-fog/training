@@ -6,8 +6,17 @@ This requires the setup in the `intro.md` document. Follow those instructions an
 
 ## Update the online reference fits
 
-The first step is to select the reference runs. They should: have a wide range of pileup, be long runs, have no issues listed in the run registry, and produce good fits for the monitored triggers at least. A good example of this, is the previous runs for the reference fits. More exact numbers of these can be obtained by examining those
-To make the fits run the following commands:
+When the reference fits need to be updated (because they were requested, there are too many fake alerts, or another reason), the first step is to select the runs used to make the new plots. The runs must meet the following criteria:
+
+Reference Fit criteria
+-Must be more recent than previous reference runs
+-At least 2 runs, each longer than 100 LS (preferably total LS between all runs >400)
+-Marked as good in RR
+-When run over the same runs in secondary using fits made from the runs <5% lumisection marked as bad
+-All fits from the monitored_trigger list should be visually inspected to ensure no significant deviation is seen
+-Must cover a large range of PU. 20-50 PU is preferrable
+
+After the runs have been selected, the fits can be made. To make the fits run the following commands:
 
 ```
 python3 plotTriggerRates.py --allTriggers --updateOnlineFits runNumbers
@@ -17,6 +26,8 @@ python3	plotTriggerRates.py --triggerList=TriggerLists/monitorlist_COLLISIONS.li
 
 This will create the reference fits for all triggers and the monitored triggers respectively. Once the fits are created, the plots created should be examined to ensure everything is correct.
 Once the fits are created, they can be committed to the respoitory. A new tag will need to be created and deployed to P5.
+
+To see how the current fits were created, there is a `command_line.txt` file in the `Fits` folder in the RateMon repository, that shows the command used to create the fits.
 
 ## Running in certification (secondary) mode 
 
