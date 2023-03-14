@@ -149,6 +149,15 @@ In this example, you can see that the rates of the trigger L1_SingleMu22 are dev
 
 If you continue to let the script run, it should continue to run through the entirety of run 317182, but after looking at a few of the printouts for a few of the lumisections, feel free to kill the script with `Control+C` (i.e. pressing the “C” key while holding down the “control” or “Ctrl” key). 
 
+For running multiple runs with `ShiftMonitorTool.py`, simply add run numbers and seperat them with commas but without space. Note that all run numbers have to be different.
+
+An example command is given below:
+
+```bash
+python3 ShiftMonitorTool.py --simulate=317288,362759,317295
+```
+These runs have only small total numbers of lumisections - 5, 7 and 19 repectively - for a quick test. You would expect to see the run report with the corresponding information after the print out of all lumisection range tables.
+ 
 ### 4.2 Notes on running with the configuration file option
 
 The `ShiftMonitorTool` script may be run with an option `--configFile`, which allows a JSON file to be passed to the `ShiftMonitorTool`. An example JSON file is included in the repository [here](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/ExampleShiftMonitroCfg.json). Any parameter (which is not on the protected list that is specified in the `ShiftMonitorNCR.py`) may be specified in the JSON file. When running with the configuration file option turned on, the code will check for updates to the configuration file each time the `runLoop()` is called (i.e. every 30s), and if there has been an update to the configuration file since the last check, the new values for the specified parameters will be applied. 
