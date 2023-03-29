@@ -134,7 +134,7 @@ This command would produce a list of plots for different trigger. An example plo
 
 ![](imgs/image5.png)
 
-Usually the average cross sections in the runs with stable beams under the same condition flutuate around a certian value, which means the fit of the plot would be approximately a horizontal line. When there is a zero or null value of average cross section in a run, it represents that there is no stable beam in the run, or in other words - all lumi-sections are zeros in the run. 
+Usually the average cross sections in the runs with stable beams under the same condition flutuate around a certian value, which means the fit of the plot would be approximately a horizontal line. When there is a zero or null value of average cross section in a run, it represents that there is no stable beam in the run, or in other words - all lumi-sections are zeros in the run. In this case, see data points for runs 362625 and 362646 on the plot. 
 
 ## Step 5: Running the shift monitor tool
 
