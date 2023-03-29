@@ -33,7 +33,7 @@ python3 -m pip install -r requirements.txt
 python3 setup.py install --user
 ```
 
-## Step 3: Running the plotTriggerRates code
+## Step 3: Running the plotTriggerRates code for rate vs. pileup
 
 Now that you have cloned the code, cd into the main ratemon directory:
 
@@ -41,7 +41,7 @@ Now that you have cloned the code, cd into the main ratemon directory:
 cd ratemon/ratemon/
 ```
 
-In this step, you will learn how to run the `plotTriggerRates.py script`. This script is responsible for making trigger rate vs. pileup plots, and is run offline (as opposed to the `ShiftMonitorTool` script, whose main purpose is to be run online during data taking). The script that you run (`plotTriggerRates.py`) is really just a wrapper for the `RateMonitor.py` script, which in turn uses functions from `DataParser.py` (to obtain the rate information),  `FitFinder.py` (to make fits to the rates), and `PlotMaker.py` (to make the plots). 
+In this step, you will learn how to run the `plotTriggerRates.py script` specifically for rate vs. pileup plots. This script is responsible for both making trigger rate vs. pileup plots and average cross section vs. run number plots, and is run offline (as opposed to the `ShiftMonitorTool` script, whose main purpose is to be run online during data taking). The script that you run (`plotTriggerRates.py`) is really just a wrapper for the `RateMonitor.py` script, which in turn uses functions from `DataParser.py` (to obtain the rate information),  `FitFinder.py` (to make fits to the rates), and `PlotMaker.py` (to make the plots). 
 
 ### 3.1 Making rate vs. pileup plots
 
@@ -120,11 +120,27 @@ python3 plotTriggerRates.py --triggerList=TriggerLists/monitorlist_COLLISIONS.li
 ```
 This uses the --exportRoot command line option for plotTriggerRates.py which will save the root files for the plots you make.
 
-## Step 4: Running the shift monitor tool
+## Step 4: Making average cross section vs. run number plots
+
+As introduced in the previous section, the script `plotTriggerRates.py` is also responsible for make average cross section vs. run number plots.
+
+To make the plot, add command line option `--plot_avgCS` to run the code along with a list of run numbers to be included:
+
+```bash
+python3 plotTriggerRates.py --triggerList=TriggerLists/monitorlist_COLLISIONS.list --plot_avgCS 362597 362614 362615 362616 362618 362625 362646 362653 362654 362655 362657
+```
+
+This command would produce a list of plots for different trigger. An example plot for the HLT_IsoMu27 trigger is:
+
+![](imgs/image5.png)
+
+Usually the average cross sections in the runs with stable beams under the same condition flutuate around a certian value, which means the fit of the plot would be approximately a horizontal line. When there is a zero or null value of average cross section in a run, it represents that there is no stable beam in the run, or in other words - all lumi-sections are zeros in the run. 
+
+## Step 5: Running the shift monitor tool
 
 In this step, you will try running the `ShiftMonitorTool.py`. As described in the posters and slides linked at the beginning of this document, this part of the code is responsible for comparing the rates of various HLT and L1 triggers to the rates predicted by a set of reference fits. Usually, this script runs continuously at P5 during datataking. As we are currently in the middle of a long shutdown, there is no data being taken. However, we can still run the script in `simulate` mode, where the script runs over data that was taken during a previous run. Although the script you run is `ShiftMonitorTool.py`, this is really just a wrapper for the main shift monitor script, which is called `ShiftMonitorNCR.py`. Feel free to take a few minutes to open these scripts and look at what they’re doing (though `ShiftMonitorNCR.py` is quite lengthy, and unfortunately not the most well organized script that was ever written, so no need to spend too much time trying to decipher things at this point). 
 
-### 4.1 Setting the RATEMON_LOG_DIR environment variable
+### 5.1 Setting the RATEMON_LOG_DIR environment variable
 
 The shift monitor code will output log files, and since the code is designed to be run at P5, will by default attempt to output the log files to a directory located on one of the machines at P5 (`/cmsnfshome0/nfshome0/triggershift/RateMonShiftTool/runII_2016/RateMon`). When testing and developing the code, you will be running on `lxplus`, not at P5, so you do not want to output the logs to that directory (and cannot directly access it anyway). To tell the code to output the logs to a different directory, you can set the `RATEMON_LOG_DIR` environment variable (to see why this changes where the code outputs the logs, take a look at lines 9 of Logger.py, and note that if the `RATEMON_LOG_DIR` variable is not set to anything, self.logdir will be set to the default value). Let’s set `RATEMON_LOG_DIR` to your current directory so that the logs will be printed to the directory from which you are running the shift monitor script. First, type pwd to see what your current working directory is. Then run the following command:
 
@@ -133,7 +149,8 @@ export RATEMON_LOG_DIR=/whatever/your/current/directory/is
 ```
 
 If you’d like to make sure that it is set to what you think it is, you can run `echo $RATEMON_LOG_DIR` to see what that environment variable is set to. 
-4.2 Running the script in simulate mode
+
+### 5.2 Running the script in simulate mode
 
 Now that your `RATEMON_LOG_DIR` is set to your current directory, you are ready to try running the `ShiftMonitorTool.py`. You will want to run the code with the simulate option, and specify a run for the code to run on (if we were not in the middle of a long shutdown, you could run without the `simulate` option, and the code would run over the current run, however, even during data taking, the `simulate` option is still useful for developing and testing the code). Try running the following command: 
 
@@ -158,7 +175,7 @@ python3 ShiftMonitorTool.py --simulate=317288,362759,317295
 ```
 These runs have only small total numbers of lumisections - 5, 7 and 19 repectively - for a quick test. You would expect to see the run report with the corresponding information after the print out of all lumisection range tables.
  
-### 4.2 Notes on running with the configuration file option
+### 5.3 Notes on running with the configuration file option
 
 The `ShiftMonitorTool` script may be run with an option `--configFile`, which allows a JSON file to be passed to the `ShiftMonitorTool`. An example JSON file is included in the repository [here](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/ExampleShiftMonitroCfg.json). Any parameter (which is not on the protected list that is specified in the `ShiftMonitorNCR.py`) may be specified in the JSON file. When running with the configuration file option turned on, the code will check for updates to the configuration file each time the `runLoop()` is called (i.e. every 30s), and if there has been an update to the configuration file since the last check, the new values for the specified parameters will be applied. 
 
