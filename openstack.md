@@ -1,3 +1,14 @@
+# About the RateMon API
+
+* Files that constitute the RateMon API:
+    - [server.py](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/server.py): This is the script that is actually running on e.g. `ater`. It depends on `ratemon.yaml`. The [Connexion quickstart](https://connexion.readthedocs.io/en/latest/quickstart.html) documentation explains how this is set up.
+    - [ratemon.yaml](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/api/ratemon.yaml): This yaml file defines the endpionts that the user (e.g. OMS) can point to. It depends on `app.py`. this [OpenAPI tutorial](https://idratherbewriting.com/learnapidoc/pubapis_openapi_tutorial_overview.html) explains how the yaml file is structured.
+    - [app.py](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/ratemon/app.py): This script imports `plotTriggerRates` and defines the functions that are the link between the endpoints that the user (e.g. OMS) points to (which are defined in the yaml) and the underlying RateMon code. In other words, this script includes the functions that are "called" in the yaml file, and these functions are essentially wrappers around RateMon functions.
+
+* Slides explaining how the RateMon API is set up:
+    - Presentation to OMS (Apr 27, 2021) [slides](https://indico.cern.ch/event/1032855/contributions/4337590/attachments/2234073/3786146/ratemon_update_for_oms_meeting_kmohrman.pdf) (see especially the backup slides)
+
+
 # Connecting to a CERN OpenStack VM running the RateMon API
 
 Set up ssh to use the necessary private key.
