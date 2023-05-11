@@ -28,7 +28,7 @@ This will create the reference fits for all triggers and the monitored triggers 
 
 Once the fits are created, the plots are also created in the `plots` directory inside these same two trigger directories. The plots should be examined to ensure everything is correct.
 
-Once the fits are created (and plots look fine), commit the four files to the respoitory: `Fits/All_Triggers/FOG.pkl`, `Fits/All_Triggers/command_line.txt`, `Fits/Monitor_Triggers/FOG.pkl` and Fits/Monitor_Triggers/command_line.txt`. 
+Once the fits are created (and plots look fine), commit the four files to the respoitory: `Fits/All_Triggers/FOG.pkl`, `Fits/All_Triggers/command_line.txt`, `Fits/Monitor_Triggers/FOG.pkl` and `Fits/Monitor_Triggers/command_line.txt`. 
  
 Then create a new tag from the new commit and a new pipeline to deploy it to P5. See section Deployment under [ratemon instruction](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/README.md) for details.
 
