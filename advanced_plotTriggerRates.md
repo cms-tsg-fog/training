@@ -24,10 +24,13 @@ python3 plotTriggerRates.py --allTriggers --updateOnlineFits runNumbers
 python3	plotTriggerRates.py --triggerList=TriggerLists/monitorlist_COLLISIONS.list --updateOnlineFits runNumbers
 ```
 
-This will create the reference fits for all triggers and the monitored triggers respectively. Hence you can see updated files of `FOG.pkl` and `command_line.txt` both in `Fits/All_Triggers` and `Fits/Monitor_Triggers` directories. Once the fits are created, the plots are also created in the `plots` directory inside these same two trigger directories. The plots should be examined to ensure everything is correct.
+This will create the reference fits for all triggers and the monitored triggers respectively. Hence you can see updated files of `FOG.pkl` and `command_line.txt` both in `Fits/All_Triggers` and `Fits/Monitor_Triggers` directories. 
+
+Once the fits are created, the plots are also created in the `plots` directory inside these same two trigger directories. The plots should be examined to ensure everything is correct.
+
 Once the fits are created (and plots look fine), commit the four files to the respoitory: `Fits/All_Triggers/FOG.pkl`, `Fits/All_Triggers/command_line.txt`, `Fits/Monitor_Triggers/FOG.pkl` and Fits/Monitor_Triggers/command_line.txt`. 
  
-Then create a new tag from the new commit and a new pipeline to deploy it to P5. See section `Deployment` under [ratemon instruction](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/README.md) for details.
+Then create a new tag from the new commit and a new pipeline to deploy it to P5. See section Deployment under [ratemon instruction](https://gitlab.cern.ch/cms-tsg-fog/ratemon/-/blob/master/README.md) for details.
 
 To see how the current fits were created, the `command_line.txt` file in `Fits` folder in the RateMon repository as mentioned above shows the command used to create the fits.
 
