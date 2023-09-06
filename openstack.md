@@ -122,6 +122,9 @@ To launch a new instance, go to `Compute` -> `Instances` and click `Launch Insta
     ```
     systemctl start nginx
     ```
+## OMSConfig.yaml
+OMSConfig.yaml needs to be filled in order for plotTriggerRates to query from OMS. 
+The filled version of this file is stored on the three OpenStack VMs (`ater`, `caer`, `ruber`). If this file is needed on another machine, it needs to be manually copied from one of these machines. 
 
 ## When things go wrong
 
